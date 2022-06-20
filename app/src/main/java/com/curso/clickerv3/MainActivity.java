@@ -8,6 +8,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.Random;
+import java.util.Calendar;
+import java.util.Formatter;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -17,6 +19,17 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
+    String nome = "";
+
+    public Formatter hora() {
+        Formatter fmt = new Formatter();
+        Calendar cal = Calendar.getInstance();
+        fmt = new Formatter();
+        fmt.format("%tl:%tM", cal, cal);
+        System.out.println(fmt);
+        return fmt;
+    }
+
     public void vai(View view){
         TextView edtPergunta = findViewById(R.id.edtPergunta);
         TextView txtResposta = findViewById(R.id.txtResposta);
@@ -24,6 +37,8 @@ public class MainActivity extends AppCompatActivity {
         TextView txtDica = findViewById(R.id.txtDica);
         ImageView imgPato = findViewById(R.id.imgPato);
         Random gerador = new Random();
+
+        txtQuack.setText("QUACK");
 
         // gera um número de 0 a 10 se o número for divisivel por 3 o pato fala quack
         int num = gerador.nextInt(10);
@@ -37,7 +52,6 @@ public class MainActivity extends AppCompatActivity {
         String pergunta = edtPergunta.getText().toString();
         edtPergunta.setText("");
 
-        String nome = "";
         System.out.println(pergunta);
 
         switch(pergunta) {
@@ -45,7 +59,20 @@ public class MainActivity extends AppCompatActivity {
                 txtResposta.setText("Olhamasmaks");
                 break;
 
-            // case que horas são
+            case "que horas são?":
+                Calendar now = Calendar.getInstance();
+                txtResposta.setText(now.get(Calendar.HOUR_OF_DAY) + ":" + now.get(Calendar.MINUTE));
+                if(now.get(Calendar.HOUR_OF_DAY) == now.get(Calendar.MINUTE)) {
+                    txtQuack.setText("Hummm...");
+                    txtQuack.setVisibility(View.VISIBLE);
+                }
+                if(6 >= now.get(Calendar.HOUR_OF_DAY) || now.get(Calendar.HOUR_OF_DAY) >= 23) {
+                    txtResposta.setText("O Grande Pato Paro pede para todos irem dormir.");
+                    imgPato.setVisibility(View.GONE);
+                    txtDica.setVisibility(View.GONE);
+                }
+                break;
+
 
             case "quantos anos você tem?":
                 txtResposta.setText("MIL MILHÕES DE ANOS!!!!");
@@ -73,12 +100,14 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case "qual é o seu nome?":
-                txtResposta.setText("O Grande Pato Paro se recusa a responder essa pergunta.");
+                txtResposta.setText("O Grande Pato Paro se recusa \na responder essa pergunta.");
                 break;
 
+            // não funcionando get text pega vazio pq tem q apertar o pato e o pato volta aaa
             case "qual é o meu nome?":
                 if(nome == ""){
                     txtResposta.setText("Qual é o seu nome?");
+                    nome = edtPergunta.getText().toString();
                 }
                 else {
                     txtResposta.setText("Humm... " + nome + "?");
@@ -102,7 +131,7 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             default:
-                txtResposta.setText("Não são todas as perguntas que o grande Pato Paro pode responder.");
+                txtResposta.setText("Não são todas as perguntas que o \ngrande Pato Paro pode responder.");
         }
     }
 
