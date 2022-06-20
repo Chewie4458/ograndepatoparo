@@ -2,6 +2,7 @@ package com.curso.clickerv3;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -35,7 +36,11 @@ public class MainActivity extends AppCompatActivity {
         TextView txtResposta = findViewById(R.id.txtResposta);
         TextView txtQuack = findViewById(R.id.txtQuack);
         TextView txtDica = findViewById(R.id.txtDica);
+
         ImageView imgPato = findViewById(R.id.imgPato);
+        ImageView imgAmogus = findViewById(R.id.imgAmogus);
+        ImageView imgPengo = findViewById(R.id.imgPengo);
+
         Random gerador = new Random();
 
         txtQuack.setText("QUACK");
@@ -53,6 +58,19 @@ public class MainActivity extends AppCompatActivity {
         edtPergunta.setText("");
 
         System.out.println(pergunta);
+
+        num = gerador.nextInt(10);
+        if(num % 5 == 0) {
+            imgPato.setVisibility(View.INVISIBLE);
+            imgPengo.setVisibility(View.VISIBLE);
+            txtResposta.setText("O PEQUENO GRANDE PENGUIM PENGO pede \nque você adivinhe o número secreto");
+        }
+
+        // else inutil
+        else {
+            imgPato.setVisibility(View.VISIBLE);
+            imgPengo.setVisibility(View.GONE);
+        }
 
         switch(pergunta) {
             case "oi":
@@ -72,7 +90,6 @@ public class MainActivity extends AppCompatActivity {
                     txtDica.setVisibility(View.GONE);
                 }
                 break;
-
 
             case "quantos anos você tem?":
                 txtResposta.setText("MIL MILHÕES DE ANOS!!!!");
@@ -94,7 +111,11 @@ public class MainActivity extends AppCompatActivity {
                 txtResposta.setText("Prefiro gatos.");
                 break;
 
-            // case amogus
+            case "amogus":
+                imgAmogus.setVisibility(View.VISIBLE);
+                txtDica.setText("sus");
+                imgPato.setVisibility(View.GONE);
+
             case "nome seu qual é?":
                 txtResposta.setText("Que?");
                 break;
