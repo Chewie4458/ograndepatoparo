@@ -2,6 +2,7 @@ package com.curso.clickerv3;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
@@ -22,14 +23,29 @@ public class MainActivity extends AppCompatActivity {
 
     String nome = "";
 
-    public Formatter hora() {
-        Formatter fmt = new Formatter();
-        Calendar cal = Calendar.getInstance();
-        fmt = new Formatter();
-        fmt.format("%tl:%tM", cal, cal);
-        System.out.println(fmt);
-        return fmt;
+    public void pengo(View view) {
+        TextView edtPergunta = findViewById(R.id.edtPergunta);
+        TextView txtResposta = findViewById(R.id.txtResposta);
+        ImageView imgPato = findViewById(R.id.imgPato);
+        ImageView imgPengo = findViewById(R.id.imgPengo);
+        Random gerador = new Random();
+
+        int num = gerador.nextInt(11);
+        int chute = Integer.parseInt(edtPergunta.getText().toString());
+
+        boolean certo;
+
+        if(chute == num){
+            txtResposta.setText("Você acertou o número secreto!");
+        }
+        else {
+            txtResposta.setText("Você errou o número secreto!");
+        }
+
+        imgPato.setVisibility(View.VISIBLE);
+        imgPengo.setVisibility(View.GONE);
     }
+
 
     public void vai(View view){
         TextView edtPergunta = findViewById(R.id.edtPergunta);
@@ -46,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         txtQuack.setText("QUACK");
 
         // gera um número de 0 a 10 se o número for divisivel por 3 o pato fala quack
-        int num = gerador.nextInt(10);
+        int num = gerador.nextInt(11);
         if(num % 3 == 0) {
             txtQuack.setVisibility(View.VISIBLE);
         }
@@ -58,19 +74,6 @@ public class MainActivity extends AppCompatActivity {
         edtPergunta.setText("");
 
         System.out.println(pergunta);
-
-        num = gerador.nextInt(10);
-        if(num % 5 == 0) {
-            imgPato.setVisibility(View.INVISIBLE);
-            imgPengo.setVisibility(View.VISIBLE);
-            txtResposta.setText("O PEQUENO GRANDE PENGUIM PENGO pede \nque você adivinhe o número secreto");
-        }
-
-        // else inutil
-        else {
-            imgPato.setVisibility(View.VISIBLE);
-            imgPengo.setVisibility(View.GONE);
-        }
 
         switch(pergunta) {
             case "oi":
@@ -153,6 +156,14 @@ public class MainActivity extends AppCompatActivity {
 
             default:
                 txtResposta.setText("Não são todas as perguntas que o \ngrande Pato Paro pode responder.");
+        }
+
+        num = gerador.nextInt(11);
+        if(num % 5 == 0) {
+            imgPato.setVisibility(View.INVISIBLE);
+            imgPengo.setVisibility(View.VISIBLE);
+            txtQuack.setVisibility(View.GONE);
+            txtResposta.setText("O PEQUENO GRANDE PENGUIM PENGO pede \nque você adivinhe o número secreto.");
         }
     }
 
