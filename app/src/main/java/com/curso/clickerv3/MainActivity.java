@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
+    boolean parabens = false;
     String nome = "";
 
     public void pengo(View view) {
@@ -57,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         ImageView imgAmogus = findViewById(R.id.imgAmogus);
         ImageView imgPengo = findViewById(R.id.imgPengo);
 
+        Calendar now = Calendar.getInstance();
         Random gerador = new Random();
 
         txtQuack.setText("QUACK");
@@ -81,7 +83,6 @@ public class MainActivity extends AppCompatActivity {
                 break;
 
             case "que horas são?":
-                Calendar now = Calendar.getInstance();
                 txtResposta.setText(now.get(Calendar.HOUR_OF_DAY) + ":" + now.get(Calendar.MINUTE));
                 if(now.get(Calendar.HOUR_OF_DAY) == now.get(Calendar.MINUTE)) {
                     txtQuack.setText("Hummm...");
@@ -118,6 +119,7 @@ public class MainActivity extends AppCompatActivity {
                 imgAmogus.setVisibility(View.VISIBLE);
                 txtDica.setText("sus");
                 imgPato.setVisibility(View.GONE);
+                break;
 
             case "nome seu qual é?":
                 txtResposta.setText("Que?");
@@ -164,6 +166,11 @@ public class MainActivity extends AppCompatActivity {
             imgPengo.setVisibility(View.VISIBLE);
             txtQuack.setVisibility(View.GONE);
             txtResposta.setText("O PEQUENO GRANDE PENGUIM PENGO pede \nque você adivinhe o número secreto.");
+        }
+
+        if((now.get(Calendar.DAY_OF_MONTH) == 20 && now.get(Calendar.MONTH) + 1 == 6) && parabens == false){
+            txtResposta.setText("O Grande Pato sente um... \naniversário??");
+            parabens = true;
         }
     }
 
